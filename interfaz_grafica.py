@@ -2,8 +2,27 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
+def jugar_multi_jugador():
+    jugador1 = input("Jugador 1, elige piedra, papel o tijera: ").lower()
+    jugador2 = input("Jugador 2, elige piedra, papel o tijera: ").lower()
+
+    opciones = ["piedra", "papel", "tijera"]
+
+    if jugador1 not in opciones or jugador2 not in opciones:
+        print("Opción no válida. Intenta de nuevo.")
+        return
+
+    if jugador1 == jugador2:
+        print("¡Empate!")
+    elif (jugador1 == "piedra" and jugador2 == "tijera") or \
+         (jugador1 == "papel" and jugador2 == "piedra") or \
+         (jugador1 == "tijera" and jugador2 == "papel"):
+        print("¡Jugador 1 gana!")
+    else:
+        print("¡Jugador 2 gana!")
+
 class PiedraPapelTijeraApp:
-    def __init__(self, root):  # ← CORREGIDO
+    def __init__(self, root):
         self.root = root
         self.root.title("Piedra, Papel o Tijera")
 
@@ -36,8 +55,15 @@ class PiedraPapelTijeraApp:
         else:
             return "¡Perdiste!"
 
-# ← CORREGIDO
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = PiedraPapelTijeraApp(root)
-    root.mainloop()
+    modo = input("Elige el modo de juego (consola/tkinter): ").strip().lower()
+    
+    if modo == "consola":
+        jugar_multi_jugador()
+    elif modo == "tkinter":
+        root = tk.Tk()
+        app = PiedraPapelTijeraApp(root)
+        root.mainloop()
+    else:
+        print("Modo no válido. Elige 'consola' o 'tkinter'.")
+
